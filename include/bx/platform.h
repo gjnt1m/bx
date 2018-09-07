@@ -59,6 +59,7 @@
 #define BX_PLATFORM_WINDOWS    0
 #define BX_PLATFORM_WINRT      0
 #define BX_PLATFORM_XBOXONE    0
+#define BX_PLATFORM_VITA     0
 
 // http://sourceforge.net/apps/mediawiki/predef/index.php?title=Compilers
 #if defined(__clang__)
@@ -213,6 +214,9 @@
 #elif defined(__NX__)
 # undef BX_PLATFORM_NX
 # define BX_PLATFORM_NX 1
+#elif defined(__vita__)
+# undef BX_PLATFORM_VITA
+# define BX_PLATFORM_VITA 1
 #endif //
 
 #if !BX_CRT_NONE
@@ -232,6 +236,9 @@
 #	elif defined(__apple_build_version__) || defined(__ORBIS__) || defined(__EMSCRIPTEN__) || defined(__llvm__)
 #		undef  BX_CRT_LIBCXX
 #		define BX_CRT_LIBCXX 1
+#	elif defined(__vita__)
+#		undef BX_CRT_NEWLIB
+#		define BX_CRT_NEWLIB 1
 #	endif //
 
 #	if !BX_CRT_BIONIC \
@@ -258,6 +265,7 @@
 		|| BX_PLATFORM_PS4        \
 		|| BX_PLATFORM_RPI        \
 		|| BX_PLATFORM_STEAMLINK  \
+		|| BX_PLATFORM_VITA		  \
 		)
 
 #define BX_PLATFORM_NONE !(0      \
@@ -275,6 +283,7 @@
 		|| BX_PLATFORM_WINDOWS    \
 		|| BX_PLATFORM_WINRT      \
 		|| BX_PLATFORM_XBOXONE    \
+		|| BX_PLATFORM_VITA		  \
 		)
 
 #if BX_COMPILER_GCC
@@ -339,6 +348,8 @@
 #	define BX_PLATFORM_NAME "WinRT"
 #elif BX_PLATFORM_XBOXONE
 #	define BX_PLATFORM_NAME "Xbox One"
+#elif BX_PLATFORM_VITA
+#	define BX_PLATFORM_NAME "Playstation Vita"
 #else
 #	error "Unknown BX_PLATFORM!"
 #endif // BX_PLATFORM_

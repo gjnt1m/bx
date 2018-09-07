@@ -15,6 +15,7 @@
 			|| BX_PLATFORM_PS4        \
 			|| BX_PLATFORM_WINRT      \
 			|| BX_PLATFORM_XBOXONE    \
+            || BX_PLATFORM_VITA       \
 			)
 #endif // BX_CONFIG_CRT_PROCESS
 

@@ -71,6 +71,7 @@ namespace bx
 		::Sleep(_ms);
 #elif  BX_PLATFORM_XBOXONE \
 	|| BX_PLATFORM_WINRT   \
+    || BX_PLATFORM_VITA    \
 	|| BX_CRT_NONE
 		BX_UNUSED(_ms);
 		debugOutput("sleep is not implemented"); debugBreak();
@@ -87,6 +88,7 @@ namespace bx
 		::SwitchToThread();
 #elif  BX_PLATFORM_XBOXONE \
 	|| BX_PLATFORM_WINRT   \
+    || BX_PLATFORM_VITA    \
 	|| BX_CRT_NONE
 		debugOutput("yield is not implemented"); debugBreak();
 #else
@@ -180,7 +182,8 @@ namespace bx
 #elif  BX_PLATFORM_EMSCRIPTEN \
 	|| BX_PLATFORM_PS4        \
 	|| BX_PLATFORM_XBOXONE    \
-	|| BX_PLATFORM_WINRT
+	|| BX_PLATFORM_WINRT      \
+    || BX_PLATFORM_VITA
 		BX_UNUSED(_filePath);
 		return NULL;
 #else
@@ -195,7 +198,8 @@ namespace bx
 #elif  BX_PLATFORM_EMSCRIPTEN \
 	|| BX_PLATFORM_PS4        \
 	|| BX_PLATFORM_XBOXONE    \
-	|| BX_PLATFORM_WINRT
+	|| BX_PLATFORM_WINRT      \
+    || BX_PLATFORM_VITA
 		BX_UNUSED(_handle);
 #else
 		::dlclose(_handle);
@@ -209,7 +213,8 @@ namespace bx
 #elif  BX_PLATFORM_EMSCRIPTEN \
 	|| BX_PLATFORM_PS4        \
 	|| BX_PLATFORM_XBOXONE    \
-	|| BX_PLATFORM_WINRT
+	|| BX_PLATFORM_WINRT      \
+    || BX_PLATFORM_VITA
 		BX_UNUSED(_handle, _symbol);
 		return NULL;
 #else
@@ -227,6 +232,7 @@ namespace bx
 #elif  BX_PLATFORM_PS4     \
 	|| BX_PLATFORM_XBOXONE \
 	|| BX_PLATFORM_WINRT   \
+    || BX_PLATFORM_VITA    \
 	|| BX_CRT_NONE
 		BX_UNUSED(_name, _out, _inOutSize);
 		return false;
@@ -257,6 +263,7 @@ namespace bx
 #elif  BX_PLATFORM_PS4     \
 	|| BX_PLATFORM_XBOXONE \
 	|| BX_PLATFORM_WINRT   \
+    || BX_PLATFORM_VITA    \
 	|| BX_CRT_NONE
 		BX_UNUSED(_name, _value);
 #else
@@ -271,6 +278,7 @@ namespace bx
 #elif  BX_PLATFORM_PS4     \
 	|| BX_PLATFORM_XBOXONE \
 	|| BX_PLATFORM_WINRT   \
+    || BX_PLATFORM_VITA    \
 	|| BX_CRT_NONE
 		BX_UNUSED(_name);
 #else
@@ -283,6 +291,7 @@ namespace bx
 #if BX_PLATFORM_PS4     \
  || BX_PLATFORM_XBOXONE \
  || BX_PLATFORM_WINRT   \
+ || BX_PLATFORM_VITA    \
  || BX_CRT_NONE
 		BX_UNUSED(_path);
 		return -1;
