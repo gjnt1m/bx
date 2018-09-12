@@ -215,8 +215,9 @@
 # undef BX_PLATFORM_NX
 # define BX_PLATFORM_NX 1
 #elif defined(__vita__)
-# undef BX_PLATFORM_VITA
-# define BX_PLATFORM_VITA 1
+#   include <psp2/types.h> 
+#   undef BX_PLATFORM_VITA
+#   define BX_PLATFORM_VITA 1
 #endif //
 
 #if !BX_CRT_NONE

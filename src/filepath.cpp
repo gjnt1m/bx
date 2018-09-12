@@ -175,6 +175,7 @@ namespace bx
 	static char* pwd(char* _buffer, uint32_t _size)
 	{
 #if BX_PLATFORM_PS4     \
+ || BX_PLATFORM_VITA    \
  || BX_PLATFORM_XBOXONE \
  || BX_PLATFORM_WINRT   \
  || BX_CRT_NONE
@@ -412,7 +413,7 @@ namespace bx
 		int32_t result = ::_mkdir(_filePath.get() );
 #elif BX_CRT_MINGW
 		int32_t result = ::mkdir(_filePath.get());
-#elif BX_CRT_NONE
+#elif BX_CRT_NONE || BX_PLATFORM_VITA
 		BX_UNUSED(_filePath);
 		int32_t result = -1;
 #else

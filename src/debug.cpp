@@ -24,8 +24,11 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* _
 #		include <CoreFoundation/CFString.h>
 extern "C" void NSLog(CFStringRef _format, ...);
 #	endif // defined(__OBJC__)
-#elif 0 // BX_PLATFORM_EMSCRIPTEN
+#elif  BX_PLATFORM_EMSCRIPTEN
 #	include <emscripten.h>
+#elif BX_PLATFORM_VITA
+#   include <string.h>
+#   include <psp2/io/fcntl.h> 
 #else
 #	include <stdio.h> // fputs, fflush
 #endif // BX_PLATFORM_WINDOWS
@@ -34,19 +37,21 @@ namespace bx
 {
 	void debugBreak()
 	{
-#if BX_COMPILER_MSVC
+#if !defined(__vita__) 
+#   if BX_COMPILER_MSVC
 		__debugbreak();
-#elif BX_CPU_ARM
+#   elif BX_CPU_ARM
 		__builtin_trap();
 //		asm("bkpt 0");
-#elif BX_CPU_X86 && (BX_COMPILER_GCC || BX_COMPILER_CLANG)
+#   elif BX_CPU_X86 && (BX_COMPILER_GCC || BX_COMPILER_CLANG)
 		// NaCl doesn't like int 3:
 		// NativeClient: NaCl module load failed: Validation failure. File violates Native Client safety rules.
 		__asm__ ("int $3");
-#else // cross platform implementation
+#   else // cross platform implementation
 		int* int3 = (int*)3L;
 		*int3 = 3;
-#endif // BX
+#   endif // BX
+#endif 
 	}
 
 	void debugOutput(const char* _out)
@@ -69,8 +74,14 @@ namespace bx
 #	else
 		NSLog(__CFStringMakeConstantString("%s"), _out);
 #	endif // defined(__OBJC__)
-#elif 0 // BX_PLATFORM_EMSCRIPTEN
+#elif BX_PLATFORM_EMSCRIPTEN
 		emscripten_log(EM_LOG_CONSOLE, "%s", _out);
+#elif BX_PLATFORM_VITA
+		SceUID fd = sceIoOpen("ux0:data/bgfx_log.txt", SCE_O_WRONLY | SCE_O_CREAT | SCE_O_APPEND, 0777);
+		if (fd >= 0) {
+			sceIoWrite(fd, _out, strlen(_out));
+			sceIoClose(fd);
+		}
 #else
 		fputs(_out, stdout);
 		fflush(stdout);

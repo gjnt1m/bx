@@ -36,6 +36,8 @@ namespace bx
 		int64_t i64 = now.tv_sec*INT64_C(1000000000) + now.tv_nsec;
 #elif BX_PLATFORM_EMSCRIPTEN
 		int64_t i64 = int64_t(1000.0f * emscripten_get_now() );
+#elif BX_PLATFORM_VITA
+		int64_t i64 = 0;
 #elif !BX_PLATFORM_NONE
 		struct timeval now;
 		gettimeofday(&now, 0);
